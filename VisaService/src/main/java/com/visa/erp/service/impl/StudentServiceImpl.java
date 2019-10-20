@@ -63,6 +63,7 @@ public class StudentServiceImpl implements StudentService {
         student.setEmail(studentDao.getEmail());
         student.setEnrollmentStatus(studentDao.getEnrollmentStatus());
         student.setEnrollmentYear(studentDao.getEnrollmentYear());
+        student.setStudentId(studentDao.getId());
         student.setCreatedDate(LocalDateTime.now());
         student.setCreatedBy("System");
         student.setUpdatedDate(LocalDateTime.now());

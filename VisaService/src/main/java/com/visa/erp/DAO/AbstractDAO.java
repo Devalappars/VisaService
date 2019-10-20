@@ -20,10 +20,10 @@ public abstract class AbstractDAO extends PersistenceEntity {
     @Column(name = "UpdatedBy")
     private String updatedBy;
 
-    @Column(name = "CreatedAt")
+    @Column(name = "CreatedOn")
     private LocalDateTime createdDate;
 
-    @Column(name = "UpdatedAt")
+    @Column(name = "UpdatedOn")
     private LocalDateTime updatedDate;
 
     /**
