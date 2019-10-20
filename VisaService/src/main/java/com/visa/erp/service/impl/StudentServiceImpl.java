@@ -1,6 +1,9 @@
 package com.visa.erp.service.impl;
 
 import com.visa.erp.DAO.StudentDao;
+import com.visa.erp.common.CommonUtility;
+import com.visa.erp.constant.CommonConstants;
+import com.visa.erp.constant.VisaCommonConstants;
 import com.visa.erp.model.Result;
 import com.visa.erp.model.StudentRequest;
 import com.visa.erp.model.StudentResponse;
@@ -17,6 +20,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentsRepository studentsRepository;
+
+    @Autowired
+    private CommonUtility commonUtility;
 
     @Override
     public StudentResponse findById(Long id) {
@@ -44,9 +50,9 @@ public class StudentServiceImpl implements StudentService {
         studentDao.setEnrollmentStatus(studentRequest.getEnrollmentStatus());
         studentDao.setEnrollmentYear(studentRequest.getEnrollmentYear());
         studentDao.setCreatedDate(LocalDateTime.now());
-        studentDao.setCreatedBy("System");
+        studentDao.setCreatedBy(VisaCommonConstants.SYSTEM);
         studentDao.setUpdatedDate(LocalDateTime.now());
-        studentDao.setUpdatedBy("System");
+        studentDao.setUpdatedBy(VisaCommonConstants.SYSTEM);
         return studentDao;
     }
 
@@ -65,16 +71,11 @@ public class StudentServiceImpl implements StudentService {
         student.setEnrollmentYear(studentDao.getEnrollmentYear());
         student.setStudentId(studentDao.getId());
         student.setCreatedDate(LocalDateTime.now());
-        student.setCreatedBy("System");
+        student.setCreatedBy(VisaCommonConstants.SYSTEM);
         student.setUpdatedDate(LocalDateTime.now());
-        student.setUpdatedBy("System");
+        student.setUpdatedBy(VisaCommonConstants.SYSTEM);
         studentResponse.setData(student);
-        studentResponse.setResult(getSuccessResponse());
+        studentResponse.setResult(commonUtility.getSuccessResponse());
         return studentResponse;
-    }
-
-    private Result getSuccessResponse(){
-        Result result = new Result("0","Success");
-        return result;
     }
 }
