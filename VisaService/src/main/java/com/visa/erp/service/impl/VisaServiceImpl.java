@@ -9,14 +9,14 @@ import java.util.logging.Logger;
 
 import com.visa.erp.DAO.PricingProduct;
 import com.visa.erp.model.*;
-import com.visa.erp.service.PricingService;
+import com.visa.erp.service.VisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import com.visa.erp.DAO.PricingPlanDAO;
 import com.visa.erp.DAO.PricingProductMapping;
 import com.visa.erp.DAO.ProductCategory;
-import com.visa.erp.DTO.PricingPlanDTO;
+import com.visa.erp.DTO.VisaDTO;
 import com.visa.erp.constant.CommonConstants;
 import com.visa.erp.repository.CategoryWithPlans;
 import com.visa.erp.repository.PricingPlansRepository;
@@ -24,7 +24,7 @@ import com.visa.erp.repository.PricingProductRepository;
 import com.visa.erp.repository.ProductMappingRepository;
 
 @Service
-public class PricingServiceImpl implements PricingService {
+public class VisaServiceImpl implements VisaService {
 
 	@Autowired
 	private CategoryWithPlans categoryWithPlans;
@@ -38,7 +38,7 @@ public class PricingServiceImpl implements PricingService {
 	@Autowired
 	private ProductMappingRepository productMappingRepository;
 
-	private static final Logger log = Logger.getLogger(PricingServiceImpl.class.getName());
+	private static final Logger log = Logger.getLogger(VisaServiceImpl.class.getName());
 
 	@Override
 	public List<Category> getAllProductwithPrices() {
@@ -271,7 +271,7 @@ public class PricingServiceImpl implements PricingService {
 	}
 
 	@Override
-	public Result updatePlan(String productTag, String transactionType, PricingPlanDTO pricingPlanDTO ) {
+	public Result updatePlan(String productTag, String transactionType, VisaDTO visaDTO) {
 		Result result=new Result();
 		PricingProduct pricingProduct = pricingProductRepository.findByProductTagAndPricingProductMappingTransactionType(productTag, transactionType);
 		int planID=0;
@@ -285,10 +285,10 @@ public class PricingServiceImpl implements PricingService {
 		int number = productMappingRepository.countBypricingPlansId(planID);
 		if(number==1){
 		PricingPlanDAO pricingPlans=pricingPlansRepository.findById(planID);
-		pricingPlans.setIndFixedFee(Float.parseFloat(pricingPlanDTO.getIndividualFixedFee()));
-		pricingPlans.setIndVariableFee(Float.parseFloat(pricingPlanDTO.getIndividualVariableFee()));
-		pricingPlans.setStaffFixedFee(Float.parseFloat(pricingPlanDTO.getStaffFixedFee()));
-		pricingPlans.setStaffVariableFee(Float.parseFloat(pricingPlanDTO.getStaffVariableFee()));
+		pricingPlans.setIndFixedFee(Float.parseFloat(visaDTO.getIndividualFixedFee()));
+		pricingPlans.setIndVariableFee(Float.parseFloat(visaDTO.getIndividualVariableFee()));
+		pricingPlans.setStaffFixedFee(Float.parseFloat(visaDTO.getStaffFixedFee()));
+		pricingPlans.setStaffVariableFee(Float.parseFloat(visaDTO.getStaffVariableFee()));
 		pricingPlansRepository.save(pricingPlans);
 		log.info("Pricing Plan :: "+planID);
 		log.info("Plans are with :: "+number);

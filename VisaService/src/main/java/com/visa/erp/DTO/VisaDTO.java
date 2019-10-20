@@ -2,7 +2,7 @@ package com.visa.erp.DTO;
 
 import java.io.Serializable;
 
-public class PricingPlanDTO implements Serializable{
+public class VisaDTO implements Serializable{
 	
 	/**
 	 * 

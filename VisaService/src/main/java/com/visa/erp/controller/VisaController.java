@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.ws.rs.QueryParam;
 
-import com.visa.erp.DTO.PricingPlanDTO;
+import com.visa.erp.DTO.VisaDTO;
 import com.visa.erp.constant.CommonConstants;
 import com.visa.erp.model.BasicResponse;
 import com.visa.erp.model.Category;
 import com.visa.erp.model.FeeDetail;
 import com.visa.erp.model.Result;
-import com.visa.erp.service.PricingService;
+import com.visa.erp.service.VisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
@@ -33,7 +33,7 @@ public class VisaController extends Throwable {
 	private static final Logger log = Logger.getLogger(VisaController.class.getName());
 
 	@Autowired
-	private PricingService pricingService;
+	private VisaService visaService;
 
 	@GetMapping(path = "/getProductPriceList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Category>> getPricingList(@QueryParam("productTag") String productTag) {
@@ -41,9 +41,9 @@ public class VisaController extends Throwable {
 		List<Category> list = null;
 		Category productCategory = null;
 			if (productTag == null)
-				list = pricingService.getAllProductwithPrices();
+				list = visaService.getAllProductwithPrices();
 			else {
-				productCategory = pricingService.getProductByTag(productTag);
+				productCategory = visaService.getProductByTag(productTag);
 				list = new ArrayList<Category>();
 				if(list!=null)
 				list.add(productCategory);
@@ -65,9 +65,9 @@ public class VisaController extends Throwable {
 		if(Float.valueOf(amt) >= 0) {
 			if (transactionType == null && accountType == null) {
 				log.info("when only productTag and amount is present");
-				basicResponse = pricingService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
+				basicResponse = visaService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
 			} else {
-				basicResponse = pricingService.getFeeService(productTag, transactionType, accountType, amt, ttNumber, ftNumber);
+				basicResponse = visaService.getFeeService(productTag, transactionType, accountType, amt, ttNumber, ftNumber);
 			}
 		}else{
 			FeeDetail feeDetail = new FeeDetail(Float.valueOf(amount),CommonConstants.DEFAULT_FLOAT_VALUE);
@@ -92,9 +92,9 @@ public class VisaController extends Throwable {
 		if(Float.valueOf(amt) >= 0) {
 		if (transactionType == null && accountType == null) {
 			log.info("when only productTag and amount is present");
-			basicResponse = pricingService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
+			basicResponse = visaService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
 		} else
-			basicResponse = pricingService.getFeeService(productTag, transactionType, accountType, amt, ttNumber,ftNumber);
+			basicResponse = visaService.getFeeService(productTag, transactionType, accountType, amt, ttNumber,ftNumber);
 		}else{
 			FeeDetail feeDetail = new FeeDetail(Float.valueOf(amount),CommonConstants.DEFAULT_FLOAT_VALUE);
 			Result result=new Result(CommonConstants.BAD_REQUEST_CODE,CommonConstants.BAD_REQUEST_DESC);
@@ -117,9 +117,9 @@ public class VisaController extends Throwable {
 		if(Float.valueOf(amt) >= 0) {
 			if (transactionType == null && accountType == null) {
 				log.info("when only productTag and amount is present");
-				basicResponse = pricingService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
+				basicResponse = visaService.getPlan(productTag, accountType, amt, ttNumber, ftNumber);
 			} else {
-				basicResponse = pricingService.getFeeService(productTag, transactionType, accountType, amt, ttNumber,
+				basicResponse = visaService.getFeeService(productTag, transactionType, accountType, amt, ttNumber,
 						ftNumber);
 			}
     	}else{
@@ -132,9 +132,9 @@ public class VisaController extends Throwable {
 	}
 	
 	@PutMapping(path = "/price/updatePlanByProductTag/{productTag}/{transactionType}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Result> updatePlanByTag(@PathVariable("productTag")String productTag,@PathVariable("transactionType")String transactionType, @RequestBody PricingPlanDTO pricingPlan){
+	public ResponseEntity<Result> updatePlanByTag(@PathVariable("productTag")String productTag,@PathVariable("transactionType")String transactionType, @RequestBody VisaDTO pricingPlan){
 		Result result;
-		result=pricingService.updatePlan(productTag, transactionType, pricingPlan);
+		result= visaService.updatePlan(productTag, transactionType, pricingPlan);
 		return new ResponseEntity<>(result,HttpStatus.CREATED);
 		
 	}
