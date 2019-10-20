@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.ws.rs.QueryParam;
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,7 +32,7 @@ public class StudentController extends Throwable {
     @PostMapping(path = {"/student"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public StudentResponse saveStudent(StudentRequest studentRequest) {
+    public StudentResponse saveStudent(@Valid @RequestBody StudentRequest studentRequest) {
         return studentService.save(studentRequest);
     }
 }

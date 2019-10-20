@@ -21,9 +21,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentResponse save(StudentRequest s) {
-        StudentDao studentDao = null;
+    public StudentResponse save(StudentRequest studentRequest) {
+        StudentDao studentDao = convertStudentRequestToDao(studentRequest);
         studentDao = studentsRepository.save(studentDao);
         return null;
+    }
+
+    private StudentDao convertStudentRequestToDao(StudentRequest studentRequest) {
+        StudentDao studentDao = new StudentDao();
+
+        return studentDao;
     }
 }

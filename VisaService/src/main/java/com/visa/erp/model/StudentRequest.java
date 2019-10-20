@@ -1,56 +1,59 @@
 package com.visa.erp.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.visa.erp.DAO.AbstractDAO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class StudentRequest {
-	
-	@JsonProperty("FirstName")
+
+	@SerializedName("firstName")
 	private String firstName;
 
-	@JsonProperty("MiddleName")
+	@SerializedName("middleName")
 	private String middleName;
 
-	@JsonProperty("LastName")
+	@SerializedName("lastName")
 	private String lastName;
 
-	@JsonProperty("Gender")
+	@SerializedName("gender")
 	private String gender;
 
-	@JsonProperty("Dob")
+	@SerializedName("dob")
 	private Date dob;
 
-	@JsonProperty("Mobile")
+	@SerializedName("mobile")
 	private String mobile;
 
-	@JsonProperty("AlternateMobile")
+	@SerializedName("alternateMobile")
 	private String alternateMobile;
 
-	@JsonProperty("Email")
+	@SerializedName("email")
 	private String email;
 
-	@JsonProperty("EnrollmentYear")
+	@SerializedName("enrollmentYear")
 	private String enrollmentYear;
 
-	@JsonProperty("EnrollmentStatus")
+	@SerializedName("enrollmentStatus")
 	private String enrollmentStatus;
 
-	@JsonProperty("CreatedBy")
+	@SerializedName("createdBy")
 	private String createdBy;
 
-	@JsonProperty("UpdatedBy")
+	@SerializedName("updatedBy")
 	private String updatedBy;
 
-	@JsonProperty("CreatedAt")
+	@SerializedName("createdDate")
 	private LocalDateTime createdDate;
 
-	@JsonProperty("UpdatedAt")
+	@SerializedName("updatedDate")
 	private LocalDateTime updatedDate;
 
 	public String getFirstName() {
