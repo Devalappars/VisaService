@@ -7,10 +7,11 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.visa.erp.DAO.AbstractDAO;
 
 @Entity
 @Table(name="StudentDao")
-public class StudentDao extends AbstractDAO{
+public class StudentDao extends AbstractDAO {
 
 	private static final long serialVersionUID = -4613186672863162521L;
 	
