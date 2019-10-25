@@ -24,8 +24,8 @@ public class StudentController extends Throwable {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping(path = "/student", produces = MediaType.APPLICATION_JSON_VALUE)
-    public StudentResponse getStudentById(@QueryParam("id") Long id) {
+    @GetMapping(path = "/student/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public StudentResponse getStudentById(@PathVariable("id") Long id) {
         return studentService.findById(id);
     }
 
