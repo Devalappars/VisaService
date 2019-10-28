@@ -18,14 +18,14 @@ public class ParentController extends Throwable {
     private ParentService parentService;
 
     @GetMapping(path = "/parent/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ParentResponse getStudentById(@PathVariable("id") Long id) {
+    public ParentResponse getParentById(@PathVariable("id") Long id) {
         return parentService.findById(id);
     }
 
     @PostMapping(path = {"/parent"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ParentResponse saveStudent(@Valid @RequestBody ParentRequest parentRequest) {
+    public ParentResponse saveParent(@Valid @RequestBody ParentRequest parentRequest) {
         return parentService.save(parentRequest);
     }
 }
