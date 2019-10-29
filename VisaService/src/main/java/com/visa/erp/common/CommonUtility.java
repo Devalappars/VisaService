@@ -10,4 +10,9 @@ public class CommonUtility {
         Result result = new Result("0","Success");
         return result;
     }
+
+    public Result noRecordsFound(){
+        Result result = new Result("-1","No Records Found");
+        return result;
+    }
 }

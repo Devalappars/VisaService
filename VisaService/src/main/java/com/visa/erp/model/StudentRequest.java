@@ -167,25 +167,4 @@ public class StudentRequest {
 	public void setUpdatedDate(LocalDateTime updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-
-	@Override
-	public String toString() {
-		final StringBuilder sb = new StringBuilder("StudentRequest{");
-		sb.append("firstName='").append(firstName).append('\'');
-		sb.append(", middleName='").append(middleName).append('\'');
-		sb.append(", lastName='").append(lastName).append('\'');
-		sb.append(", gender='").append(gender).append('\'');
-		sb.append(", dob=").append(dob);
-		sb.append(", mobile='").append(mobile).append('\'');
-		sb.append(", alternateMobile='").append(alternateMobile).append('\'');
-		sb.append(", email='").append(email).append('\'');
-		sb.append(", enrollmentYear='").append(enrollmentYear).append('\'');
-		sb.append(", enrollmentStatus='").append(enrollmentStatus).append('\'');
-		sb.append(", createdBy='").append(createdBy).append('\'');
-		sb.append(", updatedBy='").append(updatedBy).append('\'');
-		sb.append(", createdDate=").append(createdDate);
-		sb.append(", updatedDate=").append(updatedDate);
-		sb.append('}');
-		return sb.toString();
-	}
 }

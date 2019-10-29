@@ -27,6 +27,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentResponse findById(Long id) {
         StudentDao studentDao = studentsRepository.findById(id);
+        if(studentDao==null){
+            StudentResponse studentResponse = new StudentResponse();
+            studentResponse.setResult(commonUtility.noRecordsFound());
+            return null;
+        }
         return convertStudentDaoToResponse(studentDao);
     }
 
