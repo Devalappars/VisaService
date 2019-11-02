@@ -1,8 +1,8 @@
 package com.visa.erp.controller;
 
-import com.visa.erp.model.EducationRequest;
-import com.visa.erp.model.EducationResponse;
-import com.visa.erp.service.EducationService;
+import com.visa.erp.model.IdDetailsRequest;
+import com.visa.erp.model.IdDetailsResponse;
+import com.visa.erp.service.IdDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
@@ -19,18 +19,18 @@ public class IDDetailsController extends Throwable {
     private static final Logger log = Logger.getLogger(IDDetailsController.class.getName());
 
     @Autowired
-    private EducationService educationService;
+    private IdDetailsService idDetailsService;
 
-    @GetMapping(path = "/education/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public EducationResponse getEducationByEducationId(@PathVariable("studentId") Long id) {
-        return educationService.findByStudentId(id);
+    @GetMapping(path = "/idDetails/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public IdDetailsResponse getIdDetailsByStudentId(@PathVariable("studentId") Long id) {
+        return idDetailsService.findByStudentId(id);
     }
 
-    @PostMapping(path = {"/education/{studentId}"},
+    @PostMapping(path = {"/idDetails/{studentId}"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public EducationResponse saveEducation(@Valid @RequestBody EducationRequest educationRequest, @PathVariable("studentId") Long id) {
-        educationRequest.setStudentId(id);
-        return educationService.save(educationRequest);
+    public IdDetailsResponse saveIdDetails(@Valid @RequestBody IdDetailsRequest idDetailsRequest, @PathVariable("studentId") Long id) {
+        idDetailsRequest.setStudentId(id);
+        return idDetailsService.save(idDetailsRequest);
     }
 }
