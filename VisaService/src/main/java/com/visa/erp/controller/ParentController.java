@@ -22,10 +22,11 @@ public class ParentController extends Throwable {
         return parentService.findById(id);
     }
 
-    @PostMapping(path = {"/parent"},
+    @PostMapping(path = {"/parent/{studentId}"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ParentResponse saveParent(@Valid @RequestBody ParentRequest parentRequest) {
+    public ParentResponse saveParent(@Valid @RequestBody ParentRequest parentRequest, @PathVariable("studentId") Long id) {
+        parentRequest.setStudentId(id);
         return parentService.save(parentRequest);
     }
 }

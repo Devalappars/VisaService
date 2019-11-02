@@ -1,32 +1,40 @@
 package com.visa.erp.model;
 
 
-import java.sql.Date;
+import com.google.gson.annotations.SerializedName;
 
 public class ParentRequest {
 
-    private Long StudentId;
+    @SerializedName("studentId")
+    private Long studentId;
 
+    @SerializedName("firstName")
     private String firstName;
 
+    @SerializedName("middleName")
     private String middleName;
 
+    @SerializedName("lastName")
     private String lastName;
 
+    @SerializedName("relation")
     private String relation;
 
+    @SerializedName("mobile")
     private String mobile;
 
+    @SerializedName("alternateMobile")
     private String alternateMobile;
 
+    @SerializedName("email")
     private String email;
 
     public Long getStudentId() {
-        return StudentId;
+        return studentId;
     }
 
     public void setStudentId(Long studentId) {
-        StudentId = studentId;
+        this.studentId = studentId;
     }
 
     public String getFirstName() {
@@ -88,7 +96,7 @@ public class ParentRequest {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("ParentDetails{");
-        sb.append("StudentId='").append(StudentId).append('\'');
+        sb.append("studentId='").append(studentId).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", middleName='").append(middleName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
