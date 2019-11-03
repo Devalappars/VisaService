@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface IdDetailsRepository extends CrudRepository<IdDetailsDao, Integer> {
 
+    List<IdDetailsDao> findAllByStudentId(Long id);
+
     List<IdDetailsDao> findByStudentId(Long id);
 
     List<IdDetailsDao> save(List<IdDetailsDao> idDetailsDaos);

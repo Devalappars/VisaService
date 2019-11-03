@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Table(name = "IdDetails")
 public class IdDetailsDao extends AbstractDAO {
 
+    private static final long serialVersionUID = 1L;
+
     @Column(name = "StudentId")
     @JsonProperty("StudentId")
     private Long studentId;

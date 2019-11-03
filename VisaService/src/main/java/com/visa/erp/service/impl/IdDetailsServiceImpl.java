@@ -29,7 +29,7 @@ public class IdDetailsServiceImpl implements IdDetailsService {
 
     @Override
     public IdDetailsResponse findByStudentId(Long id) {
-        List<IdDetailsDao> idDetailsDao = idDetailsRepository.findByStudentId(id);
+        List<IdDetailsDao> idDetailsDao = idDetailsRepository.findAllByStudentId(id);
         if (idDetailsDao == null || idDetailsDao.size() < 1) {
             log.info("IdDetailsDao are not found");
         } else {
@@ -40,15 +40,27 @@ public class IdDetailsServiceImpl implements IdDetailsService {
 
     @Override
     public IdDetailsResponse save(IdDetailsRequest idDetailsRequest) {
-        List<IdDetailsDao> idDetailsDao = convertIdDetailsRequestToDao(idDetailsRequest);
+        //List<IdDetailsDao> idDetailsDao = convertIdDetailsRequestToDao(idDetailsRequest);
+        IdDetailsDao idDetailsDao = convertIdDetailsRequestToDao(idDetailsRequest);
         idDetailsDao = idDetailsRepository.save(idDetailsDao);
-        return convertIdDetailsDaoToResponse(idDetailsDao, idDetailsRequest.getStudentId());
+
+        List<IdDetailsDao> idDetailsDaoList = new ArrayList<IdDetailsDao>();
+        idDetailsDaoList.add(idDetailsDao);
+
+        return convertIdDetailsDaoToResponse(idDetailsDaoList, idDetailsRequest.getStudentId());
     }
 
-    private List<IdDetailsDao> convertIdDetailsRequestToDao(IdDetailsRequest idDetailsRequest) {
-        List<IdDetailsDao> idDetailsDaoList = new ArrayList<IdDetailsDao>();
-        List<IdDetail> idDetails = idDetailsRequest.getIdDetails();
-        if (!idDetails.isEmpty()) {
+    private IdDetailsDao convertIdDetailsRequestToDao(IdDetailsRequest idDetailsRequest) {
+        //List<IdDetailsDao> idDetailsDaoList = new ArrayList<IdDetailsDao>();
+        //List<IdDetail> idDetails = idDetailsRequest.getIdDetails();
+        IdDetailsDao idDetailDao = new IdDetailsDao();
+        idDetailDao.setStudentId(idDetailsRequest.getStudentId());
+        idDetailDao.setIdType(idDetailsRequest.getIdType());
+        idDetailDao.setIdNumber(idDetailsRequest.getIdNumber());
+        idDetailDao.setIdIssueDate(CommonUtility.strToDate(idDetailsRequest.getIdIssueDate()));
+        idDetailDao.setIdExpiryDate(CommonUtility.strToDate(idDetailsRequest.getIdExpiryDate()));
+        idDetailDao.setCountryOfIssue(idDetailsRequest.getCountryOfIssue());
+        /*if (!idDetails.isEmpty()) {
             idDetails.stream().forEach(idDetail -> {
                         IdDetailsDao idDetailDao = new IdDetailsDao();
                         idDetailDao.setStudentId(idDetailsRequest.getStudentId());
@@ -60,8 +72,8 @@ public class IdDetailsServiceImpl implements IdDetailsService {
                         idDetailsDaoList.add(idDetailDao);
                     }
             );
-        }
-        return idDetailsDaoList;
+        }*/
+        return idDetailDao;
     }
 
     private IdDetailsResponse convertIdDetailsDaoToResponse(List<IdDetailsDao> idDetailsDao, Long studentId) {
