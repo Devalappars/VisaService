@@ -35,4 +35,9 @@ public class StudentController extends Throwable {
     public StudentResponse saveStudent(@Valid @RequestBody StudentRequest studentRequest) {
         return studentService.save(studentRequest);
     }
+
+    @GetMapping(path = "/student/contactDetail/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ContactDetailResponse getStudentContactDetails(@PathVariable("id") Long id) {
+        return studentService.findContactDetailById(id);
+    }
 }

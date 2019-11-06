@@ -1,17 +1,18 @@
 package com.visa.erp.service.impl;
 
+import com.visa.erp.DAO.ParentDetailsDao;
 import com.visa.erp.DAO.StudentDao;
 import com.visa.erp.common.CommonUtility;
 import com.visa.erp.constant.CommonConstants;
 import com.visa.erp.constant.VisaCommonConstants;
-import com.visa.erp.model.Result;
-import com.visa.erp.model.StudentRequest;
-import com.visa.erp.model.StudentResponse;
-import com.visa.erp.model.StudentResponseDetail;
+import com.visa.erp.model.*;
+import com.visa.erp.repository.ParentsRepository;
 import com.visa.erp.repository.StudentsRepository;
 import com.visa.erp.service.StudentService;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,9 @@ public class StudentServiceImpl implements StudentService {
     private StudentsRepository studentsRepository;
 
     @Autowired
+    private ParentsRepository parentsRepository;
+
+    @Autowired
     private CommonUtility commonUtility;
 
     @Override
@@ -30,7 +34,7 @@ public class StudentServiceImpl implements StudentService {
         if(studentDao==null){
             StudentResponse studentResponse = new StudentResponse();
             studentResponse.setResult(commonUtility.noRecordsFound());
-            return null;
+            return studentResponse;
         }
         return convertStudentDaoToResponse(studentDao);
     }
@@ -40,6 +44,18 @@ public class StudentServiceImpl implements StudentService {
         StudentDao studentDao = convertStudentRequestToDao(studentRequest);
         studentDao = studentsRepository.save(studentDao);
         return convertStudentDaoToResponse(studentDao);
+    }
+
+    @Override
+    public ContactDetailResponse findContactDetailById(Long id) {
+        StudentDao studentDao = studentsRepository.findById(id);
+        if(StringUtils.isEmpty(studentDao)){
+            StudentResponse studentResponse = new StudentResponse();
+            studentResponse.setResult(commonUtility.noRecordsFound());
+
+        }
+        ParentDetailsDao detailsDao = parentsRepository.findById(id);
+        return convertContactDao(studentDao,detailsDao);
     }
 
     private StudentDao convertStudentRequestToDao(StudentRequest studentRequest) {
@@ -82,5 +98,19 @@ public class StudentServiceImpl implements StudentService {
         studentResponse.setData(student);
         studentResponse.setResult(commonUtility.getSuccessResponse());
         return studentResponse;
+    }
+
+    private ContactDetailResponse convertContactDao(StudentDao studentDao, ParentDetailsDao parentDetailsDao ){
+        StudentContactDetail contactDetail = new StudentContactDetail();
+        ContactDetailResponse response = new ContactDetailResponse();
+        contactDetail.setStudentId(studentDao.getId());
+        contactDetail.setMobile(studentDao.getMobile());
+        contactDetail.setAlternateMobile(studentDao.getAlternateMobile());
+        contactDetail.setEmail(studentDao.getEmail());
+        contactDetail.setParentMobile(parentDetailsDao.getMobile());
+        contactDetail.setParentAlternateMobile(parentDetailsDao.getAlternateMobile());
+        response.setData(contactDetail);
+        response.setResult(commonUtility.getSuccessResponse());
+        return response;
     }
 }
