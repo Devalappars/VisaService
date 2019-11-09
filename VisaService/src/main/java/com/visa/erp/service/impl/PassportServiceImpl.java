@@ -10,9 +10,12 @@ import com.visa.erp.repository.SOFRepository;
 import com.visa.erp.service.PassportService;
 import com.visa.erp.service.SourceOfFundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
+@Service
 public class PassportServiceImpl implements PassportService {
 
     @Autowired
@@ -20,6 +23,8 @@ public class PassportServiceImpl implements PassportService {
 
     @Autowired
     private CommonUtility commonUtility;
+
+    private static final Logger log = Logger.getLogger(PassportServiceImpl.class.getName());
 
     @Override
     public PassportResponse findByStudentId(Long id) {
@@ -33,7 +38,7 @@ public class PassportServiceImpl implements PassportService {
         try{
             passportDao = passportRepository.save(passportDao);
         }catch (Exception e){
-
+            log.info("Invalid details");
         }
         return convertDAOInResponse(passportDao);
     }

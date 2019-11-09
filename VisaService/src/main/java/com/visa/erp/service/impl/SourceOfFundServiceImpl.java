@@ -9,9 +9,11 @@ import com.visa.erp.model.SourceOfFundRequest;
 import com.visa.erp.repository.SOFRepository;
 import com.visa.erp.service.SourceOfFundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class SourceOfFundServiceImpl implements SourceOfFundService {
 
     @Autowired

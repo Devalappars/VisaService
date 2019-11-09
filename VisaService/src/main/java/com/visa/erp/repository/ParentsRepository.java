@@ -11,5 +11,7 @@ public interface ParentsRepository extends CrudRepository<ParentDetailsDao, Inte
 
     ParentDetailsDao findById(Long id);
 
+    ParentDetailsDao findByStudentId(Long id);
+
     ParentDetailsDao save(ParentDetailsDao s);
 }

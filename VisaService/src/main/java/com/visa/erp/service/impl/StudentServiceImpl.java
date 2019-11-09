@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
             studentResponse.setResult(commonUtility.noRecordsFound());
 
         }
-        ParentDetailsDao detailsDao = parentsRepository.findById(id);
+        ParentDetailsDao detailsDao = parentsRepository.findByStudentId(id);
         return convertContactDao(studentDao,detailsDao);
     }
 

@@ -29,11 +29,10 @@ public class PassportController extends Throwable {
         return passportService.findByStudentId(id);
     }
 
-    @PostMapping(path = {"/student/passport/{studentId}"},
+    @PostMapping(path = {"/student/passport"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public PassportResponse savePassportDetails(@Valid @RequestBody PassportRequest passportRequest, @PathVariable("studentId") Long id) {
-        passportRequest.setStudentId(id);
+    public PassportResponse savePassportDetails(@Valid @RequestBody PassportRequest passportRequest) {
         return passportService.save(passportRequest);
     }
 }

@@ -24,17 +24,15 @@ public class SourceOfFundController extends Throwable {
     @Autowired
     private SourceOfFundService sourceOfFundService;
 
-    @GetMapping(path = "/education/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/student/sof/{studentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public SOFResponse getSofInfoById(@PathVariable("studentId") Long id) {
         return sourceOfFundService.findByStudentId(id);
     }
 
-    @PostMapping(path = {"/education/{studentId}"},
+    @PostMapping(path = {"/student/sof"},
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public SOFResponse saveSourceOfFundDetails(@Valid @RequestBody SourceOfFundRequest sourceOfFundRequest,
-                                                     @PathVariable("studentId") Long id) {
-        sourceOfFundRequest.setStudentId(id);
+    public SOFResponse saveSourceOfFundDetails(@Valid @RequestBody SourceOfFundRequest sourceOfFundRequest) {
         return sourceOfFundService.save(sourceOfFundRequest);
     }
 }
